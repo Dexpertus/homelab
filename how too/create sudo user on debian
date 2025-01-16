@@ -1,0 +1,5 @@
+1. adduser username  # this adds a new user to the system
+2. usermod -aG sudo username  # this adds the new user to the sudo group
+3. getent group sudo  # this lets u verify the new user to be in the sudo group
+4. su username  # this logs u into the new user
+5. sudo whoami  # the output will be root is everything works correct. Since a user with elevated privileges executes it
