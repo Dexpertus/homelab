@@ -1,0 +1,13 @@
+1. mkdir /home/username/.ssh
+2. nano /home/username/.ssh/authorized_keys
+3. insert the public rsa-key
+4. nano /etc/ssh/sshd_config
+
+PubkeyAuthentication yes  # allows the identification with public rsa-key
+
+PasswordAuthentication no  # deactivate login with password
+
+AllowUsers username username1  # adds user to ssh
+
+5. systemctl restart sshd  # restarts the ssh deamon
+6. systemctl status sshd # shows the status of the ssh deamon
