@@ -1,0 +1,5 @@
+1. Windows Powershell öffen
+2. ssh-keygen # this generates the public/private rsa key pair
+3. enter passphrase:  # this saves the private rsa key with a password
+4. enter same passphrase again
+5. save keys into file
