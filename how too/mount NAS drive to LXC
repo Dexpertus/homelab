@@ -1,0 +1,5 @@
+On proxmox Node:
+1. mkdir /mnt/[Folder]  //create folder where to mount the NAS Drive
+2. apt-get install cifs-utils  //install cifs utility 
+3. mount -t cifs -o user=[username] //[IP-address]/[Shared Folder] /mnt/[Folder]  //mount of the NAS Drive with username, NAS-Share and mount folder on proxmox
+4. pct set [LXC Container Number] -mp0 /mnt/[Folder],mp=/shared  //bind mount folder to LXC
