@@ -1,0 +1,10 @@
+type: entity
+show_name: true
+show_state: false
+show_icon: true
+entity: person.[User]  #Hier den User eintragen
+show_entity_picture: true
+visibility:
+  - condition: state
+    entity: person.[User]  #Hier den User eintragen
+    state: home
