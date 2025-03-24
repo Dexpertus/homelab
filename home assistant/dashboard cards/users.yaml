@@ -1,0 +1,40 @@
+type: vertical-stack
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: ""
+        entity: person.[Person]  #Hier die Person eintragen
+        badge_icon: |-
+          {% if is_state(entity, "not_home") %}
+            mdi:home-export-outline
+          {% else %} 
+            {{state_attr("zone." + states(entity),"icon")}}
+          {%- endif %}
+        badge_color: |-
+          {% if is_state(entity, ["home"]) -%}
+          green
+          {% elif is_state(entity, "not_home") %}
+          red
+          {%- endif %}
+        picture: "{{state_attr(entity,\"entity_picture\")}}"
+      - type: custom:mushroom-template-card
+        primary: ""
+        secondary: ""
+        icon: ""
+        entity: person.[Person]  #Hier die Person eintragen
+        badge_icon: |-
+          {% if is_state(entity, "not_home") %}
+            mdi:home-export-outline
+          {% else %} 
+            {{state_attr("zone." + states(entity),"icon")}}
+          {%- endif %}
+        badge_color: |-
+          {% if is_state(entity, ["home"]) -%}
+          green
+          {% elif is_state(entity, "not_home") %}
+          red
+          {%- endif %}
+        picture: "{{state_attr(entity,\"entity_picture\")}}"
