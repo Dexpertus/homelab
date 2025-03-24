@@ -1,0 +1,13 @@
+type: entity
+show_name: true
+show_state: true
+show_icon: true
+entity: sensor.trockner_verbleibende_zeit
+name: Trockner
+icon: mdi:tumble-dryer
+state_content: state
+visibility:
+  - condition: state
+    entity: sensor.trockner_aktueller_status
+    state: running
+color: red
