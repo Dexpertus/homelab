@@ -1,0 +1,44 @@
+type: custom:power-distribution-card
+title: Power Flow
+entities:
+  - decimals: 2
+    display_abs: true
+    name: Netz
+    unit_of_display: W
+    icon: mdi:transmission-tower
+    entity: sensor.solax_measured_power
+    preset: grid
+    invert_value: true
+  - decimals: 2
+    display_abs: true
+    name: Haus
+    unit_of_display: W
+    consumer: true
+    icon: mdi:home-assistant
+    entity: sensor.solax_house_load
+    preset: home
+    invert_value: true
+  - decimals: 2
+    display_abs: true
+    name: Solar
+    unit_of_display: W
+    icon: mdi:solar-power
+    producer: true
+    entity: sensor.solax_pv_power_total
+    preset: solar
+    invert_value: false
+  - decimals: 2
+    display_abs: true
+    name: Batterie
+    unit_of_display: W
+    consumer: true
+    icon: mdi:battery
+    producer: true
+    entity: sensor.solax_battery_power_charge
+    preset: battery
+    secondary_info_entity: sensor.solax_battery_capacity
+    invert_value: true
+    battery_percentage_entity: sensor.solax_battery_power_charge
+center:
+  type: none
+animation: flash
