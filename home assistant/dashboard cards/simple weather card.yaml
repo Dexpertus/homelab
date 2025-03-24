@@ -1,0 +1,62 @@
+Dashboard Card:  #Dies ist die Dashboard Card
+type: custom:simple-weather-card
+entity: weather.forecast_home
+name: Dahlienweg
+primary_info:
+  - wind_bearing
+  - humidity
+secondary_info:
+  - precipitation
+  - precipitation_probability
+tap-action:
+  action: navigate
+  navigation_path: "#wetter"
+
+Bubble Card:  #Dies ist die Bubble Card
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#wetter"
+    button_type: name
+    name: "Wetter "
+    icon: mdi:weather-sunny
+  - type: custom:weather-chart-card
+    entity: weather.forecast_home
+    show_main: true
+    show_temperature: true
+    show_current_condition: true
+    show_attributes: true
+    show_time: false
+    show_time_seconds: false
+    show_day: false
+    show_date: false
+    show_humidity: true
+    show_pressure: true
+    show_wind_direction: true
+    show_wind_speed: true
+    show_sun: true
+    show_feels_like: false
+    show_dew_point: false
+    show_wind_gust_speed: false
+    show_visibility: false
+    show_last_changed: true
+    use_12hour_format: false
+    icons_size: 25
+    animated_icons: false
+    icon_style: style1
+    autoscroll: false
+    forecast:
+      precipitation_type: rainfall
+      show_probability: false
+      labels_font_size: "11"
+      precip_bar_size: "100"
+      style: style2
+      show_wind_forecast: true
+      condition_icons: true
+      round_temp: true
+      type: daily
+      number_of_forecasts: "0"
+      disable_animation: false
+    units:
+      speed: ""
