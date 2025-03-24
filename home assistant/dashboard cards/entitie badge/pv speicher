@@ -1,0 +1,11 @@
+type: entity
+show_name: true
+show_state: true
+show_icon: true
+entity: sensor.solax_battery_capacity
+name: PV Speicher
+show_entity_picture: false
+visibility:
+  - condition: numeric_state
+    entity: sensor.solax_battery_capacity
+    above: 99
