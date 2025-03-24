@@ -1,0 +1,11 @@
+type: entity
+show_name: true
+show_state: true
+show_icon: true
+entity: binary_sensor.tuya_wassersensor
+name: Wassersensor
+icon: mdi:water
+visibility:
+  - condition: state
+    entity: binary_sensor.tuya_wassersensor
+    state: "on"
