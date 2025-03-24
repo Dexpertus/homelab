@@ -1,19 +1,19 @@
-alias: Abholung [Müll Name]
+alias: Abholung [Müll Name]  ```ruby #Hier den Namen des Mülls eintragen für den die Automation erstellt werden soll```
 description: ""
 triggers:
   - trigger: time
-    at: "18:00:00"
+    at: "18:00:00"  #Uhrzeit zu der die Benachrichtigung versendet wird
 conditions:
   - condition: or
     conditions:
       - condition: template
-        value_template: "{{'in 1 days' in states('sensor.[Müll Name]') }}"
+        value_template: "{{'in 1 days' in states('sensor.[Müll Name]') }}"  #Hier den sensor des Mülls eintragen
       - condition: template
-        value_template: "{{'in 2 days' in states('sensor.[Müll Name]') }}"
+        value_template: "{{'in 2 days' in states('sensor.[Müll Name]') }}"  #Hier den sensor des Mülls eintragen
 actions:
   - action: notify.notify
     metadata: {}
     data:
-      title: Abholung [Müll Name]
+      title: Abholung [Müll Name]  #Hier den Namen des Mülls eintragen für den die Automation erstellt werden soll
       message: Abholung {{states('sensor.[Müll Name]') }}
 mode: single
