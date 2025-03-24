@@ -1,0 +1,40 @@
+event_grouping: true
+drop_todayevents_from: "10:00:00"
+next_days: 7  #Anzeige von Terminen im voraus
+pattern:
+  - icon: mdi:flower
+    color: lime
+    type: organic
+    pattern: Biomüll
+  - icon: mdi:newspaper
+    color: blue
+    type: paper
+    pattern: Papier
+  - icon: mdi:recycle-variant
+    color: amber
+    type: recycle
+    pattern: Gelber Sack
+  - icon: mdi:trash-can-outline
+    color: grey
+    type: waste
+    pattern: Restmüll
+  - icon: mdi:dump-truck
+    color: purple
+    type: others
+  - label: Sperrmüll
+    icon: mdi:sofa
+    color: blue-grey
+    type: custom
+    pattern: Sperrmüll
+day_style: counter
+card_style: icon
+alignment_style: left
+items_per_row: 1
+refresh_rate: 60
+with_label: true
+type: custom:trash-card
+entities:
+  - calendar.[Abfallkalendername]  #Hier eigenen Kalendernamen eintragen
+filter_events: true
+hide_time_range: false
+use_summary: false
