@@ -1,4 +1,4 @@
-alias: Abholung [Müll Name]  ```ruby #Hier den Namen des Mülls eintragen für den die Automation erstellt werden soll```
+alias: Abholung [Müll Name]  ```#Hier den Namen des Mülls eintragen für den die Automation erstellt werden soll```
 description: ""
 triggers:
   - trigger: time
