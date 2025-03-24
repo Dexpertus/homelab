@@ -1,4 +1,4 @@
-Dashboard Card:  #Dies ist die Dashboard Card
+#Dies ist die Dashboard Card
 type: custom:simple-weather-card
 entity: weather.forecast_home
 name: Dahlienweg
@@ -12,7 +12,7 @@ tap-action:
   action: navigate
   navigation_path: "#wetter"
 
-Bubble Card:  #Dies ist die Bubble Card
+#Dies ist die Bubble Card
 type: vertical-stack
 cards:
   - type: custom:bubble-card
