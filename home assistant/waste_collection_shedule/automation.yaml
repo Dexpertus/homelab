@@ -1,4 +1,4 @@
-alias: Abholung [Müll Name]  <ins>Hier den Namen des Mülls eintragen für den die Automation erstellt werden soll<ins>
+alias: Abholung [Müll Name]  <ins>Hier den Namen des Mülls eintragen für den die Automation erstellt werden soll</ins>
 description: ""
 triggers:
   - trigger: time
