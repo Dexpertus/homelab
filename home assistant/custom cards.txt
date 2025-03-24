@@ -1,0 +1,11 @@
+Mushroom
+Bubble Card
+auto-entities
+Config Template Card
+Weather Chart Card
+Simple Weather Card
+TrashCard
+Weather Radar Card
+power-distribution-card
+Hue-Like Light Card
+Minimalistic Area Card
