@@ -1,0 +1,12 @@
+type: entity
+show_name: true
+show_state: true
+show_icon: true
+entity: sensor.waschmaschine_fertigstellungszeit
+name: Waschmaschine
+icon: mdi:washing-machine
+state_content: state
+visibility:
+  - condition: state
+    entity: sensor.waschmaschine_maschinenzustand
+    state: run
