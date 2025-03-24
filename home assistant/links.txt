@@ -1,5 +1,0 @@
-# Links zu Anleitungen und Code-Snippets
-## Youtube
-
-## GitHub
-[Grundlegende Schreib- und Formatierungssyntax](https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
