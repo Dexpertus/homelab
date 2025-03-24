@@ -1,0 +1,19 @@
+alias: Abholung [Müll Name]
+description: ""
+triggers:
+  - trigger: time
+    at: "18:00:00"
+conditions:
+  - condition: or
+    conditions:
+      - condition: template
+        value_template: "{{'in 1 days' in states('sensor.[Müll Name]') }}"
+      - condition: template
+        value_template: "{{'in 2 days' in states('sensor.[Müll Name]') }}"
+actions:
+  - action: notify.notify
+    metadata: {}
+    data:
+      title: Abholung [Müll Name]
+      message: Abholung {{states('sensor.[Müll Name]') }}
+mode: single
