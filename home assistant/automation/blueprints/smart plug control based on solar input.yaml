@@ -1,5 +1,5 @@
 blueprint:
-  name: smart plug control based on solar input
+  name: Smart Plug Control based on Solar Input
   description: Turn a smart plug on/off based on solar input.
   domain: automation
   input:  #Input
