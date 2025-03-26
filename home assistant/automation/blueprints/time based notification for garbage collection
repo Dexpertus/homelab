@@ -26,9 +26,7 @@ blueprint:
     input_notification_time:
       name: time for notification
       description: This input value defines the time for notification send.
-      datetime:
-        has_time: true
-        has_date: false
+      time:
               
 triggers:
   - trigger: time
