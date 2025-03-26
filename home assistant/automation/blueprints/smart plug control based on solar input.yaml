@@ -49,6 +49,7 @@ blueprint:
               max: 5000.0
               step: 50.0
               mode: box
+              unit_of_measurement: Watt
           
         input_below_power:
           name: below-value
@@ -60,6 +61,7 @@ blueprint:
               max: 5000.0
               step: 50.0
               mode: box
+              unit_of_measurement: Watt
                 
         input_battery_capacity:
           name: Battery Capacity
@@ -71,52 +73,39 @@ blueprint:
               max: 100.0
               step: 1.0
               mode: box
+              unit_of_measurement: %
 
 triggers:
-  - trigger: numeric_state
+  - alias: more then !input input_above_power Watt input into power grid
+    trigger: numeric_state
     entity_id: !input input_pv_power_sensor
-  - trigger: numeric_state
-    entity_id: !input input_battery_capacity_sensor
-  
-# alias: Elektrische Heizung 1 turn on/off
-# triggers:
-#   - alias: more then 2600 Watt input into power grid
-#     trigger: numeric_state
-#     entity_id: !input pv_power_sensor
-#     id: above-2600
-#     above: 2600 
-#   - alias: less then 2300 Watt input into power grid
-#     trigger: numeric_state
-#     entity_id: !input pv_power_sensor
-#     below: 2300  
-#     id: below-2300
-# conditions:
-#   - condition: numeric_state
-#     entity_id: !input battery_capacity_sensor
-#     above: 70 
+    id: above_value
+    above: !input input_above_power
+  - alias: less then !input input_above_power Watt input into power grid
+    trigger: numeric_state
+    entity_id: !input input_pv_power_sensor
+    id: below_value
+    above: !input input_below_power
 
-actions:
-  - action: >
-      {% if trigger.input_pv_power_total.numeric_state > 'above_power' and trigger.input_battery_capacity.numeric_state > 'battery_capacity' %}
-        light.turn_on
-      {% elif trigger.input_pv_power_total.numeric_state < 'below_power' %}
-        light.turn_off
-      {% endif %}
-      
-mode: single      
-  # - choose:
-  #     - conditions:
-  #         - condition: trigger
-  #           id:
-  #             - above-2600  
-  #       sequence:
-  #         - action: light.turn_on
-  #           target: !input target_light
-  #     - conditions:
-  #         - condition: trigger
-  #           id:
-  #             - below-2300  
-  #       sequence:
-  #         - action: light.turn_off
-  #           target: !input target_light
-# mode: single
+conditions:
+  - condition: numeric_state
+    entity_id: !input input_battery_capacity_sensor
+    above: !input input_battery_capacity
+
+actions:          
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - above-value  
+        sequence:
+          - action: light.turn_on
+            target: !input input_target_smart_plug
+      - conditions:
+          - condition: trigger
+            id:
+              - below-value  
+        sequence:
+          - action: light.turn_off
+            target: !input input_target_smart_plug
+mode: single
