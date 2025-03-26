@@ -26,7 +26,7 @@ blueprint:
     target_section:  #Section for all the targets
       name: Targets
       icon: mdi:power-plug
-      input:
+      input:  #Input for target_section
         input_target_smart_plug:
             name: Smart Plug
             description: The smart plug to keep in sync.
@@ -35,6 +35,10 @@ blueprint:
                 filter:
                   - domain: light
 
+    value_section:
+      name: Values
+      collapsed: false
+      input:  #Input for value_section
         input_above_power:
           name: above-value
           description: This input value defines the above-value of solar input.
@@ -93,9 +97,9 @@ triggers:
 
 actions:
   - action: >
-      {% if trigger.input_pv_power_total.numeric_state > above_power & trigger.input_battery_capacity.numeric_state > battery_capacity %}
+      {% if trigger.input_pv_power_total.numeric_state > above_power and trigger.input_battery_capacity.numeric_state > battery_capacity %}
         light.turn_on
-      {% elseif trigger.input_pv_power_total.numeric_state < under_power %}
+      {% elif trigger.input_pv_power_total.numeric_state < under_power %}
         light.turn_off
       {% endif %}
       
