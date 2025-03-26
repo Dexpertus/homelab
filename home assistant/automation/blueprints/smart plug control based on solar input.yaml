@@ -71,9 +71,9 @@ triggers:
 #     above: 70  
 actions:
   - action: >
-      {% if trigger.input_pv_power_total.state > "2600" && trigger.input_battery_capacity %}
+      {% if trigger.input_pv_power_total.numeric_state > "2600" && trigger.input_battery_capacity.numeric_state > "70" %}
         light.turn_on
-      {% else if trigger.input_pv_power_total < "2300" %}
+      {% else if trigger.input_pv_power_total.numeric_state < "2300" %}
         light.turn_off
       {% endif %}
   # - choose:
