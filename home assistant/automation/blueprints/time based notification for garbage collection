@@ -23,17 +23,17 @@ blueprint:
           filter:
             - domain: sensor 
               
-     input_time:
-       name: time for notification
-       description: This input value defines the time for notification send.
-       default: 18:00:00
-       selector:
-         number:
-           min: 00:00:00
-           max: 23:59:00
-           step: 00:01:00
-           mode: box
-           unit_of_measurement: Uhr
+    input_time:
+      name: time for notification
+      description: This input value defines the time for notification send.
+      default: 18:00:00
+      selector:
+        number:
+          min: 00:00:00
+          max: 23:59:00
+          step: 00:01:00
+          mode: box
+          unit_of_measurement: Uhr
               
 triggers:
   - trigger: time
