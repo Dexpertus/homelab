@@ -50,9 +50,9 @@ blueprint:
               step: 50.0
               mode: box
           
-        input_under_power:
-          name: under-value
-          description: This input value defines the under-value of solar input.
+        input_below_power:
+          name: below-value
+          description: This input value defines the below-value of solar input.
           default: 2300
           selector:
             number:
@@ -89,7 +89,7 @@ triggers:
 #     trigger: numeric_state
 #     entity_id: !input pv_power_sensor
 #     below: 2300  
-#     id: under-2300
+#     id: below-2300
 # conditions:
 #   - condition: numeric_state
 #     entity_id: !input battery_capacity_sensor
@@ -99,7 +99,7 @@ actions:
   - action: >
       {% if trigger.input_pv_power_total.numeric_state > 'above_power' and trigger.input_battery_capacity.numeric_state > 'battery_capacity' %}
         light.turn_on
-      {% elif trigger.input_pv_power_total.numeric_state < 'under_power' %}
+      {% elif trigger.input_pv_power_total.numeric_state < 'below_power' %}
         light.turn_off
       {% endif %}
       
@@ -114,7 +114,7 @@ actions:
   #     - conditions:
   #         - condition: trigger
   #           id:
-  #             - under-2300  
+  #             - below-2300  
   #       sequence:
   #         - action: light.turn_off
   #           target: !input target_light
