@@ -100,12 +100,14 @@ actions:
               - above_value  
         sequence:
           - action: light.turn_on
-            target: !input input_target_smart_plug
+            target: 
+              entity_id: !input input_target_smart_plug
       - conditions:
           - condition: trigger
             id:
               - below_value  
         sequence:
           - action: light.turn_off
-            target: !input input_target_smart_plug
+            target: 
+              entity_id: !input input_target_smart_plug
 mode: single
