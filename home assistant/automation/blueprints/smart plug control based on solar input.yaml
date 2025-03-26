@@ -49,11 +49,11 @@ blueprint:
 
 triggers:
   - trigger: numeric_state
-    entity_id: !input pv_power_sensor
-    id: input_pv_power_sensor
+    entity_id: !input input_pv_power_sensor
+    id: pv_power_sensor
   - trigger: numeric_state
-    entity_id: !input battery_capacity_sensor
-    id: input_battery_capacity_sensor
+    entity_id: !input input_battery_capacity_sensor
+    id: battery_capacity_sensor
   
 # alias: Elektrische Heizung 1 turn on/off
 # triggers:
