@@ -24,15 +24,15 @@ blueprint:
         entity:
           filter:
             - domain: sensor
-    above_power:
-      name: above-value
-      description: This input value defines the above-value of solar input.
-    under_power:
-      name: under-value
-      description: This input value defines the under-value of solar input.
-    battery_capacity:
-      name: Battery Capacity
-      description: This input value defines the battery capacity.
+    # above_power:
+    #   name: above-value
+    #   description: This input value defines the above-value of solar input.
+    # under_power:
+    #   name: under-value
+    #   description: This input value defines the under-value of solar input.
+    # battery_capacity:
+    #   name: Battery Capacity
+    #   description: This input value defines the battery capacity.
 
 triggers:
   - trigger: numeric_state
