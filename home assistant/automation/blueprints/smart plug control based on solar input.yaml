@@ -1,40 +1,75 @@
+blueprint:
+  name: smart plug control based on solar input
+  description: Turn a smart plug on/off based on solar input.
+  domain: automation
+  input:
+    pv_power_sensor:
+      name: PV Power Total
+      description: This sensor will be synchronized with the smart plug.
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    target_light:
+      name: Smart Plug
+      description: The smart plug to keep in sync.
+      selector:
+        entity:
+          filter:
+            - domain: light
+    battery_capacity_sensor:
+      name: Battery Capacity
+      description: This sensor will be synchronized with the smart plug.
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    above_power:
+      name: above-value
+      description: This input value defines the above-value of solar input.
+    under_power:
+      name: under-value
+      description: This input value defines the under-value of solar input.
+    battery_capacity:
+      name: Battery Capacity
+      description: This input value defines the battery capacity.
+
+triggers:
+  - trigger: numeric_state
+    entity_id: !input pv_power_sensor
+  - trigger: numeric_state
+    entity_id: !input battery_capacity_sensor
+  
 alias: Elektrische Heizung 1 turn on/off
-description: ""
 triggers:
   - alias: more then 2600 Watt input into power grid
     trigger: numeric_state
-    entity_id:
-      - sensor.solax_pv_power_total
+    entity_id: !input pv_power_sensor
     id: above-2600
-    above: 2600  #the value pv power total must be above
+    above: 2600 
   - alias: less then 2300 Watt input into power grid
     trigger: numeric_state
-    entity_id:
-      - sensor.solax_pv_power_total
-    below: 2300  #the value pv power total must be under
+    entity_id: !input pv_power_sensor
+    below: 2300  
     id: under-2300
 conditions:
   - condition: numeric_state
-    entity_id: sensor.solax_battery_capacity
-    above: 70  #extra condition, the value battery capacity must be above
+    entity_id: !input battery_capacity_sensor
+    above: 70  
 actions:
   - choose:
       - conditions:
           - condition: trigger
             id:
-              - above-2600  #trigger-id defined above as trigger
+              - above-2600  
         sequence:
-          - type: turn_on
-            device_id: ce9f80962338b5e61641acdbf9c68f42
-            entity_id: 0060fada3dc5c7f3944187ea071cbe24
-            domain: light
+          - action: light.turn_on
+            target: !input target_light
       - conditions:
           - condition: trigger
             id:
-              - under-2300  #trigger-id defined above as trigger
+              - under-2300  
         sequence:
-          - type: turn_off
-            device_id: ce9f80962338b5e61641acdbf9c68f42
-            entity_id: 0060fada3dc5c7f3944187ea071cbe24
-            domain: light
+          - action: light.turn_off
+            target: !input target_light
 mode: single
