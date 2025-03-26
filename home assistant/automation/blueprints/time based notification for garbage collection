@@ -26,7 +26,6 @@ blueprint:
     input_time:
       name: time for notification
       description: This input value defines the time for notification send.
-      default: 18:00:00
       selector:
         time:
               
