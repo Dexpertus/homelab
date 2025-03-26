@@ -97,14 +97,14 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - above-value  
+              - above_value  
         sequence:
           - action: light.turn_on
             target: !input input_target_smart_plug
       - conditions:
           - condition: trigger
             id:
-              - below-value  
+              - below_value  
         sequence:
           - action: light.turn_off
             target: !input input_target_smart_plug
