@@ -29,11 +29,6 @@ blueprint:
       default: 18:00:00
       selector:
         time:
-          min: 00:00:00
-          max: 23:59:00
-          step: 00:01:00
-          mode: box
-          unit_of_measurement: Uhr
               
 triggers:
   - trigger: time
