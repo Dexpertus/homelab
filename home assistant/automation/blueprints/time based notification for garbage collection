@@ -28,7 +28,7 @@ blueprint:
       description: This input value defines the time for notification send.
       default: 18:00:00
       selector:
-        number:
+        time:
           min: 00:00:00
           max: 23:59:00
           step: 00:01:00
