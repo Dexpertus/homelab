@@ -73,7 +73,7 @@ blueprint:
               max: 100.0
               step: 1.0
               mode: box
-              unit_of_measurement: %
+              unit_of_measurement: Prozent
 
 triggers:
   - alias: more then !input input_above_power Watt input into power grid
