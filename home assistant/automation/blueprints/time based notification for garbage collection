@@ -23,15 +23,16 @@ blueprint:
           filter:
             - domain: sensor 
               
-    input_time:
+    input_notification_time:
       name: time for notification
       description: This input value defines the time for notification send.
-      selector:
-        time:
+      datetime:
+        has_time: true
+        has_date: false
               
 triggers:
   - trigger: time
-    at: "!input input_time"
+    at: "!input input_notification_time"
 conditions:
   - condition: or
     conditions:
