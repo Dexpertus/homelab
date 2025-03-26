@@ -16,5 +16,7 @@ GitHub
 
 Home Assistant Doku
   Blueprints
+    Creating a Blueprint
+      - https://www.home-assistant.io/docs/blueprint/tutorial/
     Selectors
       - https://www.home-assistant.io/docs/blueprint/selectors
