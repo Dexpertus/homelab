@@ -97,9 +97,9 @@ triggers:
 
 actions:
   - action: >
-      {% if trigger.input_pv_power_total.numeric_state > above_power and trigger.input_battery_capacity.numeric_state > battery_capacity %}
+      {% if trigger.input_pv_power_total.numeric_state > 'above_power' and trigger.input_battery_capacity.numeric_state > 'battery_capacity' %}
         light.turn_on
-      {% elif trigger.input_pv_power_total.numeric_state < under_power %}
+      {% elif trigger.input_pv_power_total.numeric_state < 'under_power' %}
         light.turn_off
       {% endif %}
       
