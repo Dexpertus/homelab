@@ -68,7 +68,8 @@ triggers:
 # conditions:
 #   - condition: numeric_state
 #     entity_id: !input battery_capacity_sensor
-#     above: 70  
+#     above: 70 
+
 actions:
   - action: >
       {% if trigger.input_pv_power_total.numeric_state > "2600" && trigger.input_battery_capacity.numeric_state > "70" %}
@@ -76,6 +77,7 @@ actions:
       {% else if trigger.input_pv_power_total.numeric_state < "2300" %}
         light.turn_off
       {% endif %}
+      
   # - choose:
   #     - conditions:
   #         - condition: trigger
