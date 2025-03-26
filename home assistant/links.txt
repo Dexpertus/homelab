@@ -13,3 +13,8 @@ Youtube
 GitHub
   Grundlegende Schreib- und Formatierungssyntax 
     - https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+
+Home Assistant Doku
+  Blueprints
+    Selectors
+      - https://www.home-assistant.io/docs/blueprint/selectors
