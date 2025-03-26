@@ -1,0 +1,40 @@
+alias: Elektrische Heizung 1 turn on/off
+description: ""
+triggers:
+  - alias: more then 2600 Watt input into power grid
+    trigger: numeric_state
+    entity_id:
+      - sensor.solax_pv_power_total
+    id: above-2600
+    above: 2600  #the value pv power total must be above
+  - alias: less then 2300 Watt input into power grid
+    trigger: numeric_state
+    entity_id:
+      - sensor.solax_pv_power_total
+    below: 2300  #the value pv power total must be under
+    id: under-2300
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.solax_battery_capacity
+    above: 70  #extra condition, the value battery capacity must be above
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - above-2600  #trigger-id defined above as trigger
+        sequence:
+          - type: turn_on
+            device_id: ce9f80962338b5e61641acdbf9c68f42
+            entity_id: 0060fada3dc5c7f3944187ea071cbe24
+            domain: light
+      - conditions:
+          - condition: trigger
+            id:
+              - under-2300  #trigger-id defined above as trigger
+        sequence:
+          - type: turn_off
+            device_id: ce9f80962338b5e61641acdbf9c68f42
+            entity_id: 0060fada3dc5c7f3944187ea071cbe24
+            domain: light
+mode: single
