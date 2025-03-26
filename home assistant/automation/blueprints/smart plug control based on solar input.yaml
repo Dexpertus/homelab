@@ -35,17 +35,38 @@ blueprint:
                 filter:
                   - domain: light
 
-        above_power:
+        input_above_power:
           name: above-value
           description: This input value defines the above-value of solar input.
+          default: 2600
+          selector:
+            number:
+              min: 50.0
+              max: 5000.0
+              step: 50.0
+              mode: box
           
-        under_power:
+        input_under_power:
           name: under-value
           description: This input value defines the under-value of solar input.
+          default: 2300
+          selector:
+            number:
+              min: 50.0
+              max: 5000.0
+              step: 50.0
+              mode: box
                 
-        battery_capacity:
+        input_battery_capacity:
           name: Battery Capacity
           description: This input value defines the battery capacity.
+          default: 70
+          selector:
+            number:
+              min: 10.0
+              max: 100.0
+              step: 1.0
+              mode: box
 
 triggers:
   - trigger: numeric_state
@@ -72,9 +93,9 @@ triggers:
 
 actions:
   - action: >
-      {% if trigger.input_pv_power_total.numeric_state > "2600" & trigger.input_battery_capacity.numeric_state > "70" %}
+      {% if trigger.input_pv_power_total.numeric_state > above_power & trigger.input_battery_capacity.numeric_state > battery_capacity %}
         light.turn_on
-      {% elseif trigger.input_pv_power_total.numeric_state < "2300" %}
+      {% elseif trigger.input_pv_power_total.numeric_state < under_power %}
         light.turn_off
       {% endif %}
       
