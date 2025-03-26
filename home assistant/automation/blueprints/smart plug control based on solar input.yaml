@@ -103,6 +103,7 @@ actions:
         light.turn_off
       {% endif %}
       
+mode: single      
   # - choose:
   #     - conditions:
   #         - condition: trigger
