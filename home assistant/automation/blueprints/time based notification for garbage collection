@@ -1,0 +1,54 @@
+blueprint:
+  name: time based notification for garbage collection
+  description: Sends an notification for garbage collection times.
+  domain: automation
+  input:  
+    input_garbage_name:
+      name: Name des Müll
+      description: This input value defines the name of the garbage.
+      selector:
+        select:
+          options:
+            - Biomüll
+            - Restmüll
+            - Papiermüll
+            - Gelber Sack
+            - Sperrmüll
+            
+    input_garbage_sensor:
+      name: Sensor des Müll
+      description: This sensor defines the garbage.
+        selector:
+          entity:
+            filter:
+              - domain: sensor 
+              
+     input_time:
+       name: time for notification
+       description: This input value defines the time for notification send.
+       default: 18:00:00
+       selector:
+         number:
+           min: 00:00:00
+           max: 23:59:00
+           step: 00:01:00
+           mode: box
+           unit_of_measurement: Uhr
+              
+triggers:
+  - trigger: time
+    at: "!input input_time"
+conditions:
+  - condition: or
+    conditions:
+      - condition: template
+        value_template: "{{'in 1 days' in states('!input input_garbage_sensor') }}"
+      - condition: template
+        value_template: "{{'in 2 days' in states('!input input_garbage_sensor') }}"
+actions:
+  - action: notify.notify
+    metadata: {}
+    data:
+      title: Abholung Biomüll
+      message: Abholung {{states('!input input_garbage_sensor') }}
+mode: single
