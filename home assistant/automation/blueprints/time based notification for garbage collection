@@ -18,10 +18,10 @@ blueprint:
     input_garbage_sensor:
       name: Sensor des Müll
       description: This sensor defines the garbage.
-        selector:
-          entity:
-            filter:
-              - domain: sensor 
+      selector:
+        entity:
+          filter:
+            - domain: sensor 
               
      input_time:
        name: time for notification
