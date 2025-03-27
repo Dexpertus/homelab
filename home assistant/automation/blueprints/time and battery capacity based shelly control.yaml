@@ -62,26 +62,24 @@ action:
   - choose:
       - conditions:
           - condition: trigger
-            id:
-              - turn_on 
+            id: turn_on
+        sequence:
+          - service: switch.turn_on
+            target:
+              entity_id: !input switch_entity
           - if:
-            - condition: template
-              value_template: "{{ !input.notify }}"
+              - condition: template
+                value_template: "{{ !input.notify }}"
             then:
-            - action: notify.notify
-              data:
-                title: "!input notify_title"
-                message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
-            sequence:
-              - action: switch.turn_on
-                target: 
-                  entity_id: !input switch_entity
+              - service: notify.notify
+                data:
+                  title: "!input.notify_title"
+                  message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
       - conditions:
           - condition: trigger
-            id:
-              - turn_off
-            sequence:
-              - action: switch.turn_off
-                target:
-                  entity_id: !input switch_entity
+            id: turn_off
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: !input switch_entity
 
