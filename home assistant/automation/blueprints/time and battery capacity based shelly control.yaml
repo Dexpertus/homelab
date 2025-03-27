@@ -33,18 +33,18 @@ blueprint:
           selector:
             entity:
               domain: schedule
-        notify:
-          name: "⏰ Benachrichtigung aktivieren"
-          description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
-          default: false
-          selector:
-            boolean:
-        notify_title:
-          name: "Titel der Benachrichtigung"
-          description: "Wie soll der Titel der Benachrichtigung lauten."
-          default: "Shelly 1"
-          selector:
-            text:
+        # notify:
+        #   name: "⏰ Benachrichtigung aktivieren"
+        #   description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
+        #   default: false
+        #   selector:
+        #     boolean:
+        # notify_title:
+        #   name: "Titel der Benachrichtigung"
+        #   description: "Wie soll der Titel der Benachrichtigung lauten."
+        #   default: "Shelly 1"
+        #   selector:
+        #     text:
 
 mode: single
 max_exceeded: silent
@@ -67,14 +67,14 @@ action:
           - service: switch.turn_on
             target:
               entity_id: !input switch_entity
-          - if:
-              - condition: template
-                value_template: "{{ !input.notify }}"
-            then:
-              - service: notify.notify
-                data:
-                  title: "!input.notify_title"
-                  message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
+          # - if:
+          #     - condition: template
+          #       value_template: "{{ !input.notify }}"
+          #   then:
+          #     - service: notify.notify
+          #       data:
+          #         title: "!input.notify_title"
+          #         message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
       - conditions:
           - condition: trigger
             id: turn_off
