@@ -186,7 +186,7 @@ condition:
   - condition: template
     value_template: >-
       {% set day = now().strftime('%A').lower() %}
-      {% set min_battery_level = states(!input['{}_battery'.format(day)]) | float %}
+      {% set min_battery_level = states[!input[day ~ '_battery']] | float %}
       {{ states(!input.battery_entity) | float >= min_battery_level }}
 action:
   - service: switch.turn_on
@@ -200,7 +200,8 @@ action:
       data:
         title: "!input notify_title"
         message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
-  - delay: "00:00:{{ !input.duration }}"
+  - delay: 
+      seconds: !input duration
   - service: switch.turn_off
     target:
       entity_id: !input switch_entity
