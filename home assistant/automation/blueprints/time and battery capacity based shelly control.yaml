@@ -1,10 +1,10 @@
 blueprint:
-  name: "Aktor nach Batteriestand und Zeit steuern"
-  description: "Schaltet einen Aktor ein, wenn der Batteriestand zu bestimmten Zeiten an einem bestimmten Wochentag hoch genug ist, und schaltet ihn nach einer bestimmten Zeit automatisch wieder aus. Optional kann eine Benachrichtigung gesendet werden."
+  name: "Aktor nach datetime_helper steuern"
+  description: "Schaltet einen Aktor ein/aus, wenn der datetime_helper on/off und ein Mindestbatteriestand erreicht ist. Optional kann eine Benachrichtigung gesendet werden."
   domain: automation
   input:
     standard_section:
-      name: "Sensoren und Standardwerte"
+      name: "Sensoren"
       input:
         switch_entity:
           name: "⚙️ Schaltbarer Aktor"
@@ -18,30 +18,21 @@ blueprint:
           selector:
             entity:
               domain: sensor
-        default_battery_level:
-          name: "Standard-Mindestbatteriestand"
-          description: "Standardwert für den Mindestbatteriestand in Prozent. Kann pro Tag überschrieben werden."
+        battery_level:
+          name: "Mindestbatteriestand"
+          description: "Mindestbatteriestand in Prozent."
           default: 50
           selector:
             number:
               min: 0
               max: 100
               unit_of_measurement: "%"
-        default_time:
-          name: "⏲️ Standard-Schaltzeit"
-          description: "Standardwert für die Schaltzeit, wenn kein spezifischer Tag gesetzt ist."
-          default: "06:30:00"
+        schedule:
+          name: "Zeitplan"
+          description: "Der Zeitplan, wann geschaltet werden soll."
           selector:
-            time:
-        duration:
-          name: "⌛ Einschaltdauer"
-          description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
-          default: 1800
-          selector:
-            number:
-              min: 1
-              max: 86400
-              unit_of_measurement: "s"    
+            entity:
+              domain: schedule
         notify:
           name: "⏰ Benachrichtigung aktivieren"
           description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
@@ -51,158 +42,46 @@ blueprint:
         notify_title:
           name: "Titel der Benachrichtigung"
           description: "Wie soll der Titel der Benachrichtigung lauten."
-          default: "Shelly "
+          default: "Shelly 1"
           selector:
             text:
-            
-    day_section:
-      name: "🗓️ Wochentageweise Schaltzeit und Mindestbatteriestand"
-      collapsed: true
-      input:
-        monday:
-          name: "Montag Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Montags geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        monday_battery:
-          name: "Montag Mindestbatteriestand"
-          description: "Mindestbatteriestand für Montag in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
-        tuesday:
-          name: "Dienstag Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Dienstags geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        tuesday_battery:
-          name: "Dienstag Mindestbatteriestand"
-          description: "Mindestbatteriestand für Dienstag in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
-        wednesday:
-          name: "Mittwoch Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Mittwochs geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        wednesday_battery:
-          name: "Mittwoch Mindestbatteriestand"
-          description: "Mindestbatteriestand für Mittwoch in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
-        thursday:
-          name: "Donnerstag Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Donnerstags geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        thursday_battery:
-          name: "Donnerstag Mindestbatteriestand"
-          description: "Mindestbatteriestand für Donnerstag in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
-        friday:
-          name: "Freitag Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Freitags geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        friday_battery:
-          name: "Freitag Mindestbatteriestand"
-          description: "Mindestbatteriestand für Freitag in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
-        saturday:
-          name: "Samstag Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Samstags geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        saturday_battery:
-          name: "Samstag Mindestbatteriestand"
-          description: "Mindestbatteriestand für Samstag in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
-        sunday:
-          name: "Sonntag Schaltzeit"
-          description: "Zeitpunkt an dem der Aktor Sonntags geschaltet werden soll."
-          default: !input default_time
-          selector:
-            time:
-        sunday_battery:
-          name: "Sonntag Mindestbatteriestand"
-          description: "Mindestbatteriestand für Sonntag in Prozent."
-          default: 50
-          selector:
-            number:
-              min: 0
-              max: 100
-              unit_of_measurement: "%"
 
 mode: single
 max_exceeded: silent
 
 trigger:
-  - platform: time
-    at: !input monday
-  - platform: time
-    at: !input tuesday
-  - platform: time
-    at: !input wednesday
-  - platform: time
-    at: !input thursday
-  - platform: time
-    at: !input friday
-  - platform: time
-    at: !input saturday
-  - platform: time
-    at: !input sunday
-condition:
-  - condition: template
-    value_template: >-
-      {% set day = now().strftime('%A').lower() %}
-      {% set min_battery_level = states[ day + '_battery' ] | float(0) %}
-      {{ states[!input.battery_entity] | float >= min_battery_level }}
+  - trigger: state
+    entity_id: !input schedule
+    to: "on"
+    id: turn_on
+  - trigger: state
+    entity_id: !input schedule
+    to: "off"
+    id: turn_off      
 action:
-  - service: switch.turn_on
-    target:
-      entity_id: !input switch_entity
-  - if:
-    - condition: template
-      value_template: "{{ !input.notify }}"
-    then:
-    - action: notify.notify
-      data:
-        title: "!input notify_title"
-        message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
-  - delay: 
-      seconds: !input duration
-  - service: switch.turn_off
-    target:
-      entity_id: !input switch_entity
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - turn_on 
+          - if:
+            - condition: template
+              value_template: "{{ !input.notify }}"
+            then:
+            - action: notify.notify
+              data:
+                title: "!input notify_title"
+                message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
+            sequence:
+              - action: switch.turn_on
+                target: 
+                  entity_id: !input switch_entity
+      - conditions:
+          - condition: trigger
+            id:
+              - turn_off
+            sequence:
+              - action: switch.turn_off
+                target:
+                  entity_id: !input switch_entity
+
