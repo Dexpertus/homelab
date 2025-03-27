@@ -3,161 +3,168 @@ blueprint:
   description: "Schaltet einen Aktor ein, wenn der Batteriestand zu bestimmten Zeiten an einem bestimmten Wochentag hoch genug ist, und schaltet ihn nach einer bestimmten Zeit automatisch wieder aus. Optional kann eine Benachrichtigung gesendet werden."
   domain: automation
   input:
-    switch_entity:
-      name: "Schaltbarer Aktor"
-      description: "Das Gerät, das geschaltet werden soll."
-      selector:
-        entity:
-          domain: switch
-    battery_entity:
-      name: "Batteriestand-Sensor"
-      description: "Der Sensor, der den Ladezustand des Batteriespeichers angibt."
-      selector:
-        entity:
-          domain: sensor
-    default_battery_level:
-      name: "Standard-Mindestbatteriestand"
-      description: "Standardwert für den Mindestbatteriestand in Prozent. Kann pro Tag überschrieben werden."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    default_time:
-      name: "Standard-Schaltzeit"
-      description: "Standardwert für die Schaltzeit, wenn kein spezifischer Tag gesetzt ist."
-      default: "00:00:00"
-      selector:
-        time:
-    notify:
-      name: "Benachrichtigung aktivieren"
-      description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
-      default: false
-      selector:
-        boolean:
-    notify_entity:
-      name: "Benachrichtigungsdienst"
-      description: "Der Benachrichtigungsdienst, an den die Meldung gesendet werden soll."
-      default: ""
-      selector:
-        entity:
-          domain: notify
-          multiple: false
-    monday:
-      name: "Montag Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Montags geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    monday_battery:
-      name: "Montag Mindestbatteriestand"
-      description: "Mindestbatteriestand für Montag in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    tuesday:
-      name: "Dienstag Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Dienstags geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    tuesday_battery:
-      name: "Dienstag Mindestbatteriestand"
-      description: "Mindestbatteriestand für Dienstag in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    wednesday:
-      name: "Mittwoch Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Mittwochs geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    wednesday_battery:
-      name: "Mittwoch Mindestbatteriestand"
-      description: "Mindestbatteriestand für Mittwoch in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    thursday:
-      name: "Donnerstag Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Donnerstags geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    thursday_battery:
-      name: "Donnerstag Mindestbatteriestand"
-      description: "Mindestbatteriestand für Donnerstag in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    friday:
-      name: "Freitag Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Freitags geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    friday_battery:
-      name: "Freitag Mindestbatteriestand"
-      description: "Mindestbatteriestand für Freitag in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    saturday:
-      name: "Samstag Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Samstags geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    saturday_battery:
-      name: "Samstag Mindestbatteriestand"
-      description: "Mindestbatteriestand für Samstag in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    sunday:
-      name: "Sonntag Schaltzeit"
-      description: "Zeitpunkt an dem der Aktor Sonntags geschaltet werden soll."
-      default: !input default_time
-      selector:
-        time:
-    sunday_battery:
-      name: "Sonntag Mindestbatteriestand"
-      description: "Mindestbatteriestand für Sonntag in Prozent."
-      default: 50
-      selector:
-        number:
-          min: 0
-          max: 100
-          unit_of_measurement: "%"
-    duration:
-      name: "Einschaltdauer"
-      description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
-      default: 3600
-      selector:
-        number:
-          min: 1
-          max: 86400
-          unit_of_measurement: "s"
+    standard_section:
+      name: "Sensoren und Standardwerte"
+      input:
+        switch_entity:
+          name: "Schaltbarer Aktor"
+          icon: mdi:toggle-switch-variant-off
+          description: "Das Gerät, das geschaltet werden soll."
+          selector:
+            entity:
+              domain: switch
+        battery_entity:
+          name: "Batteriestand-Sensor"
+          icon: mdi:battery-charging-high
+          description: "Der Sensor, der den Ladezustand des Batteriespeichers angibt."
+          selector:
+            entity:
+              domain: sensor
+        default_battery_level:
+          name: "Standard-Mindestbatteriestand"
+          icon: mdi:battery-50
+          description: "Standardwert für den Mindestbatteriestand in Prozent. Kann pro Tag überschrieben werden."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        default_time:
+          name: "Standard-Schaltzeit"
+          icon: mdi:clock-time-eight
+          description: "Standardwert für die Schaltzeit, wenn kein spezifischer Tag gesetzt ist."
+          default: "06:30:00"
+          selector:
+            time:
+        duration:
+          name: "Einschaltdauer"
+          icon: mdi:timer
+          description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
+          default: 3600
+          selector:
+            number:
+              min: 1
+              max: 86400
+              unit_of_measurement: "s"    
+        notify:
+          name: "Benachrichtigung aktivieren"
+          icon: mdi:bell
+          description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
+          default: false
+          selector:
+            boolean:
+            
+    day_section:
+      name: "Wochentageweise Schaltzeit und Mindestbatteriestand"
+      icon: mdi:calendar-range
+      collapsed: false
+      input:
+        monday:
+          name: "Montag Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Montags geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        monday_battery:
+          name: "Montag Mindestbatteriestand"
+          description: "Mindestbatteriestand für Montag in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        tuesday:
+          name: "Dienstag Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Dienstags geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        tuesday_battery:
+          name: "Dienstag Mindestbatteriestand"
+          description: "Mindestbatteriestand für Dienstag in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        wednesday:
+          name: "Mittwoch Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Mittwochs geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        wednesday_battery:
+          name: "Mittwoch Mindestbatteriestand"
+          description: "Mindestbatteriestand für Mittwoch in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        thursday:
+          name: "Donnerstag Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Donnerstags geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        thursday_battery:
+          name: "Donnerstag Mindestbatteriestand"
+          description: "Mindestbatteriestand für Donnerstag in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        friday:
+          name: "Freitag Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Freitags geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        friday_battery:
+          name: "Freitag Mindestbatteriestand"
+          description: "Mindestbatteriestand für Freitag in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        saturday:
+          name: "Samstag Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Samstags geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        saturday_battery:
+          name: "Samstag Mindestbatteriestand"
+          description: "Mindestbatteriestand für Samstag in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
+        sunday:
+          name: "Sonntag Schaltzeit"
+          description: "Zeitpunkt an dem der Aktor Sonntags geschaltet werden soll."
+          default: !input default_time
+          selector:
+            time:
+        sunday_battery:
+          name: "Sonntag Mindestbatteriestand"
+          description: "Mindestbatteriestand für Sonntag in Prozent."
+          default: 50
+          selector:
+            number:
+              min: 0
+              max: 100
+              unit_of_measurement: "%"
 
 automation:
   - alias: "Schalte Aktor nach Batterielevel und Zeit"
