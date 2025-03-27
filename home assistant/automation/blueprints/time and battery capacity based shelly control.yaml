@@ -48,6 +48,11 @@ blueprint:
           default: false
           selector:
             boolean:
+        notify_title:
+          name: "Titel der Benachrichtigung"
+          description: "Wie soll der Titel der Benachrichtigung lauten."
+          selector:
+            text:
             
     day_section:
       name: "🗓️ Wochentageweise Schaltzeit und Mindestbatteriestand"
@@ -192,7 +197,7 @@ automation:
         then:
           - action: notify.notify
             data:
-              title: Fußbodenheizung
+              title: "!input notify_title"
               message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
       - delay: "00:00:{{ !input.duration }}"
       - service: switch.turn_off
