@@ -51,7 +51,7 @@ blueprint:
         notify_title:
           name: "Titel der Benachrichtigung"
           description: "Wie soll der Titel der Benachrichtigung lauten."
-          default: " "
+          default: "Shelly"
           selector:
             text:
             
