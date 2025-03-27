@@ -1,0 +1,179 @@
+blueprint:
+  name: "Aktor nach Batteriestand und Zeit steuern"
+  description: "Schaltet einen Aktor ein, wenn der Batteriestand zu bestimmten Zeiten an einem bestimmten Wochentag hoch genug ist, und schaltet ihn nach einer bestimmten Zeit automatisch wieder aus. Optional kann eine Benachrichtigung gesendet werden."
+  domain: automation
+  input:
+    switch_entity:
+      name: "Schaltbarer Aktor"
+      description: "Das Gerät, das geschaltet werden soll."
+      selector:
+        entity:
+          domain: switch
+    battery_entity:
+      name: "Batteriestand-Sensor"
+      description: "Der Sensor, der den Ladezustand des Batteriespeichers angibt."
+      selector:
+        entity:
+          domain: sensor
+    notify:
+      name: "Benachrichtigung aktivieren"
+      description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
+      default: false
+      selector:
+        boolean:
+    notify_entity:
+      name: "Benachrichtigungsdienst"
+      description: "Der Benachrichtigungsdienst, an den die Meldung gesendet werden soll."
+      default: ""
+      selector:
+        entity:
+          domain: notify
+          multiple: false
+    time_monday:
+      name: "Schaltzeiten Montag"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    time_tuesday:
+      name: "Schaltzeiten Dienstag"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    time_wednesday:
+      name: "Schaltzeiten Mittwoch"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    time_thursday:
+      name: "Schaltzeiten Donnerstag"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    time_friday:
+      name: "Schaltzeiten Freitag"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    time_saturday:
+      name: "Schaltzeiten Samstag"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    time_sunday:
+      name: "Schaltzeiten Sonntag"
+      selector:
+        object:
+          multiple: true
+          properties:
+            time:
+              selector:
+                time:
+            min_battery_level:
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
+    duration:
+      name: "Einschaltdauer"
+      description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
+      default: 3600
+      selector:
+        number:
+          min: 1
+          max: 86400
+          unit_of_measurement: "s"
+
+automation:
+  - alias: "Schalte Aktor nach Batterielevel und Zeit"
+    trigger:
+      - platform: time_pattern
+        minutes: "/1"
+    condition:
+      - condition: template
+        value_template: >-
+          {% set day = now().strftime('%A').lower() %}
+          {% set times = !input['time_' ~ day] %}
+          {% for entry in times %}
+            {% if entry.time == now().strftime('%H:%M:%S') and states(!input.battery_entity) | float >= entry.min_battery_level %}
+              {{ true }}
+            {% endif %}
+          {% endfor %}
+          {{ false }}
+    action:
+      - service: switch.turn_on
+        target:
+          entity_id: !input switch_entity
+      - if:
+          - condition: template
+            value_template: "{{ !input.notify }}"
+        then:
+          - service: notify.notify
+            target:
+              entity_id: !input notify_entity
+            data:
+              message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
+      - delay: "00:00:{{ !input.duration }}"
+      - service: switch.turn_off
+        target:
+          entity_id: !input switch_entity
