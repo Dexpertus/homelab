@@ -51,7 +51,7 @@ blueprint:
         notify_title:
           name: "Titel der Benachrichtigung"
           description: "Wie soll der Titel der Benachrichtigung lauten."
-          default: "Shelly 1"
+          default: "Shelly "
           selector:
             text:
             
@@ -188,8 +188,7 @@ condition:
     value_template: >-
       {% set day = now().strftime('%A').lower() %}
       {% set min_battery_level = states[ day + '_battery' ] | float(0) %}
-      #{% set min_battery_level = states[!input [day ~ '_battery']] | float %}
-      {{ states(!input.battery_entity) | float >= min_battery_level }}
+      {{ states[!input.battery_entity] | float >= min_battery_level }}
 action:
   - service: switch.turn_on
     target:
