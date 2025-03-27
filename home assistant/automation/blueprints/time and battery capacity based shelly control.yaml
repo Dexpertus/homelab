@@ -31,109 +31,39 @@ blueprint:
           multiple: false
     time_monday:
       name: "Schaltzeiten Montag"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     time_tuesday:
       name: "Schaltzeiten Dienstag"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     time_wednesday:
       name: "Schaltzeiten Mittwoch"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     time_thursday:
       name: "Schaltzeiten Donnerstag"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     time_friday:
       name: "Schaltzeiten Freitag"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     time_saturday:
       name: "Schaltzeiten Samstag"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     time_sunday:
       name: "Schaltzeiten Sonntag"
+      description: "Liste von Zeitpunkten und Mindestbatterieständen im JSON-Format."
       selector:
-        object:
-          multiple: true
-          properties:
-            time:
-              selector:
-                time:
-            min_battery_level:
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        text:
     duration:
       name: "Einschaltdauer"
       description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
@@ -153,7 +83,8 @@ automation:
       - condition: template
         value_template: >-
           {% set day = now().strftime('%A').lower() %}
-          {% set times = !input['time_' ~ day] %}
+          {% set times_json = !input['time_' ~ day] %}
+          {% set times = times_json | from_json %}
           {% for entry in times %}
             {% if entry.time == now().strftime('%H:%M:%S') and states(!input.battery_entity) | float >= entry.min_battery_level %}
               {{ true }}
