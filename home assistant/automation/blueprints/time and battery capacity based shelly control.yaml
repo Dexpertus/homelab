@@ -164,7 +164,9 @@ blueprint:
               max: 100
               unit_of_measurement: "%"
 
-automation:
+mode: single
+max_exceeded: silent
+sequence:
   - alias: "Schalte Aktor nach Batterielevel und Zeit"
     trigger:
       - platform: time
