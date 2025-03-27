@@ -38,131 +38,48 @@ blueprint:
         entity:
           domain: notify
           multiple: false
-    times:
-      name: "Schaltzeiten pro Wochentag"
-      description: "Definiere die Zeiten und Mindestbatteriestände für jeden Wochentag."
+    monday:
+      name: "Montag"
+      description: "Zeiten und Mindestbatteriestände für Montag."
+      default: []
       selector:
         object:
-          schema:
-            monday:
-              name: "Montag"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
-            tuesday:
-              name: "Dienstag"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
-            wednesday:
-              name: "Mittwoch"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
-            thursday:
-              name: "Donnerstag"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
-            friday:
-              name: "Freitag"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
-            saturday:
-              name: "Samstag"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
-            sunday:
-              name: "Sonntag"
-              type: list
-              items:
-                type: map
-                keys:
-                  time:
-                    name: "Zeitpunkt"
-                    selector:
-                      time:
-                  min_battery:
-                    name: "Mindestbatteriestand"
-                    selector:
-                      number:
-                        min: 0
-                        max: 100
-                        unit_of_measurement: "%"
+    tuesday:
+      name: "Dienstag"
+      description: "Zeiten und Mindestbatteriestände für Dienstag."
+      default: []
+      selector:
+        object:
+    wednesday:
+      name: "Mittwoch"
+      description: "Zeiten und Mindestbatteriestände für Mittwoch."
+      default: []
+      selector:
+        object:
+    thursday:
+      name: "Donnerstag"
+      description: "Zeiten und Mindestbatteriestände für Donnerstag."
+      default: []
+      selector:
+        object:
+    friday:
+      name: "Freitag"
+      description: "Zeiten und Mindestbatteriestände für Freitag."
+      default: []
+      selector:
+        object:
+    saturday:
+      name: "Samstag"
+      description: "Zeiten und Mindestbatteriestände für Samstag."
+      default: []
+      selector:
+        object:
+    sunday:
+      name: "Sonntag"
+      description: "Zeiten und Mindestbatteriestände für Sonntag."
+      default: []
+      selector:
+        object:
     duration:
       name: "Einschaltdauer"
       description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
@@ -182,7 +99,7 @@ automation:
       - condition: template
         value_template: >-
           {% set day = now().strftime('%A').lower() %}
-          {% set times = !input.times[day] %}
+          {% set times = !input[day] %}
           {% set default_level = !input.default_battery_level | float %}
           {% for entry in times %}
             {% set min_battery_level = entry.min_battery | default(default_level) | float %}
