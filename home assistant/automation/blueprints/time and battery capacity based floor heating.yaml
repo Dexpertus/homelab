@@ -1,0 +1,139 @@
+blueprint:
+  name: "Schaltaktor mit individuellen Zeiten pro Wochentag & Auto-Off"
+  description: >
+    Schaltet einen Aktor an bestimmten Wochentagen zu einer festgelegten Zeit ein,
+    wenn der Batteriestand über einem bestimmten Wert liegt.
+    Der Aktor wird nach einer definierten Zeit automatisch ausgeschaltet.
+  domain: automation
+  input:
+    schaltaktor:
+      name: "Schaltbarer Aktor"
+      description: "Das Gerät, das ein- oder ausgeschaltet werden soll."
+      selector:
+        entity:
+          domain: switch
+    batterie_sensor:
+      name: "Batterie-Sensor"
+      description: "Sensor, der den Ladezustand der Batterie misst."
+      selector:
+        entity:
+          domain: sensor
+          device_class: battery
+    schwellwert:
+      name: "Min. Batteriestand"
+      description: "Der minimale Wert, ab dem der Aktor eingeschaltet wird."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+    zeit_montag:
+      name: "Einschaltzeit Montag"
+      selector:
+        time:
+    zeit_dienstag:
+      name: "Einschaltzeit Dienstag"
+      selector:
+        time:
+    zeit_mittwoch:
+      name: "Einschaltzeit Mittwoch"
+      selector:
+        time:
+    zeit_donnerstag:
+      name: "Einschaltzeit Donnerstag"
+      selector:
+        time:
+    zeit_freitag:
+      name: "Einschaltzeit Freitag"
+      selector:
+        time:
+    zeit_samstag:
+      name: "Einschaltzeit Samstag"
+      selector:
+        time:
+    zeit_sonntag:
+      name: "Einschaltzeit Sonntag"
+      selector:
+        time:
+    ausschaltzeit:
+      name: "Automatische Ausschaltzeit"
+      description: "Wie lange der Aktor eingeschaltet bleiben soll (in Minuten)."
+      default: 30
+      selector:
+        number:
+          min: 1
+          max: 1440
+          unit_of_measurement: "min"
+    benachrichtigung:
+      name: "Benachrichtigung aktivieren?"
+      description: "Soll eine Benachrichtigung bei Ein-/Ausschaltung gesendet werden?"
+      default: false
+      selector:
+        boolean:
+    notify_service:
+      name: "Benachrichtigungs-Dienst"
+      description: "Benachrichtigungsdienst (z. B. mobile_app_dein_handy)"
+      default: ""
+      selector:
+        text:
+
+mode: single
+
+trigger:
+  - platform: time
+    at: !input zeit_montag
+    id: "monday"
+  - platform: time
+    at: !input zeit_dienstag
+    id: "tuesday"
+  - platform: time
+    at: !input zeit_mittwoch
+    id: "wednesday"
+  - platform: time
+    at: !input zeit_donnerstag
+    id: "thursday"
+  - platform: time
+    at: !input zeit_freitag
+    id: "friday"
+  - platform: time
+    at: !input zeit_samstag
+    id: "saturday"
+  - platform: time
+    at: !input zeit_sonntag
+    id: "sunday"
+
+condition:
+  - condition: template
+    value_template: "{{ now().strftime('%A') | lower == trigger.id }}"
+  - condition: numeric_state
+    entity_id: !input batterie_sensor
+    above: !input schwellwert
+
+action:
+  - service: switch.turn_on
+    target:
+      entity_id: !input schaltaktor
+
+  - if:
+      - condition: template
+        value_template: "{{ !input.notify_service == '' and input.benachrichtigung }}"
+    then:
+      - service: !input notify_service
+        data:
+          message: "Schaltaktor wurde um {{ now().strftime('%H:%M') }} Uhr eingeschaltet."
+
+  - delay: 
+      minutes: !input ausschaltzeit
+
+  - service: switch.turn_off
+    target:
+      entity_id: !input schaltaktor
+
+  - if:
+      - condition: template
+        value_template: "{{ !input.notify_service == '' and input.benachrichtigung }}"
+    then:
+      - service: !input notify_service
+        data:
+          message: "Schaltaktor wurde um {{ now().strftime('%H:%M') }} Uhr ausgeschaltet."
