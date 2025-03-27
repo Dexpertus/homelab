@@ -36,7 +36,7 @@ blueprint:
         duration:
           name: "⌛ Einschaltdauer"
           description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
-          default: 3600
+          default: 1800
           selector:
             number:
               min: 1
