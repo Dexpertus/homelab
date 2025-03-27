@@ -7,22 +7,19 @@ blueprint:
       name: "Sensoren und Standardwerte"
       input:
         switch_entity:
-          name: "Schaltbarer Aktor"
-          icon: mdi:toggle-switch-variant-off
+          name: "⚙️ Schaltbarer Aktor"
           description: "Das Gerät, das geschaltet werden soll."
           selector:
             entity:
               domain: switch
         battery_entity:
-          name: "Batteriestand-Sensor"
-          icon: mdi:battery-charging-high
+          name: "⚙️ Batteriestand-Sensor"
           description: "Der Sensor, der den Ladezustand des Batteriespeichers angibt."
           selector:
             entity:
               domain: sensor
         default_battery_level:
           name: "Standard-Mindestbatteriestand"
-          icon: mdi:battery-50
           description: "Standardwert für den Mindestbatteriestand in Prozent. Kann pro Tag überschrieben werden."
           default: 50
           selector:
@@ -31,15 +28,13 @@ blueprint:
               max: 100
               unit_of_measurement: "%"
         default_time:
-          name: "Standard-Schaltzeit"
-          icon: mdi:clock-time-eight
+          name: "⏲️ Standard-Schaltzeit"
           description: "Standardwert für die Schaltzeit, wenn kein spezifischer Tag gesetzt ist."
           default: "06:30:00"
           selector:
             time:
         duration:
-          name: "Einschaltdauer"
-          icon: mdi:timer
+          name: "⌛ Einschaltdauer"
           description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
           default: 3600
           selector:
@@ -48,16 +43,14 @@ blueprint:
               max: 86400
               unit_of_measurement: "s"    
         notify:
-          name: "Benachrichtigung aktivieren"
-          icon: mdi:bell
+          name: "⏰ Benachrichtigung aktivieren"
           description: "Soll eine Benachrichtigung gesendet werden, wenn der Aktor geschaltet wird?"
           default: false
           selector:
             boolean:
             
     day_section:
-      name: "Wochentageweise Schaltzeit und Mindestbatteriestand"
-      icon: mdi:calendar-range
+      name: "🗓️ Wochentageweise Schaltzeit und Mindestbatteriestand"
       collapsed: false
       input:
         monday:
