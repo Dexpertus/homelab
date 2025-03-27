@@ -30,14 +30,14 @@ blueprint:
       default: false
       selector:
         boolean:
-    notify_entity:
-      name: "Benachrichtigungsdienst"
-      description: "Der Benachrichtigungsdienst, an den die Meldung gesendet werden soll."
-      default: ""
-      selector:
-        entity:
-          domain: notify
-          multiple: false
+    # notify_entity:
+    #   name: "Benachrichtigungsdienst"
+    #   description: "Der Benachrichtigungsdienst, an den die Meldung gesendet werden soll."
+    #   default: ""
+    #   selector:
+    #     entity:
+    #       domain: notify
+    #       multiple: false
     monday:
       name: "Montag"
       description: "Zeiten und Mindestbatteriestände für Montag."
@@ -193,11 +193,11 @@ automation:
           - condition: template
             value_template: "{{ !input.notify }}"
         then:
-          - service: notify.notify
-            target:
-              entity_id: !input notify_entity
+          - action: notify.notify
+            metadata: {}
             data:
-              message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
+              title: Fußbodenheizung
+              message: "Die Fußbodenheizung wurde eingeschaltet."
       - delay: "00:00:{{ !input.duration }}"
       - service: switch.turn_off
         target:
