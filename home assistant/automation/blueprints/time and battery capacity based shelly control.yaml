@@ -184,10 +184,9 @@ automation:
           - condition: template
             value_template: "{{ !input.notify }}"
         then:
-          - service: notify.notify
-            target:
-              entity_id: !input.notify_entity
+          - action: notify.notify
             data:
+              title: Fußbodenheizung
               message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
       - delay: "00:00:{{ !input.duration }}"
       - service: switch.turn_off
