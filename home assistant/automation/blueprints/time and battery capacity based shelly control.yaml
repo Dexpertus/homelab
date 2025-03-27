@@ -30,133 +30,119 @@ blueprint:
       default: false
       selector:
         boolean:
-    # notify_entity:
-    #   name: "Benachrichtigungsdienst"
-    #   description: "Der Benachrichtigungsdienst, an den die Meldung gesendet werden soll."
-    #   default: ""
-    #   selector:
-    #     entity:
-    #       domain: notify
-    #       multiple: false
+    notify_entity:
+      name: "Benachrichtigungsdienst"
+      description: "Der Benachrichtigungsdienst, an den die Meldung gesendet werden soll."
+      default: ""
+      selector:
+        entity:
+          domain: notify
+          multiple: false
     monday:
-      name: "Montag"
-      description: "Zeiten und Mindestbatteriestände für Montag."
-      default: []
+      name: "Montag Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Montags geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    monday_battery:
+      name: "Montag Mindestbatteriestand"
+      description: "Mindestbatteriestand für Montag in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     tuesday:
-      name: "Dienstag"
-      description: "Zeiten und Mindestbatteriestände für Dienstag."
-      default: []
+      name: "Dienstag Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Dienstags geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    tuesday_battery:
+      name: "Dienstag Mindestbatteriestand"
+      description: "Mindestbatteriestand für Dienstag in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     wednesday:
-      name: "Mittwoch"
-      description: "Zeiten und Mindestbatteriestände für Mittwoch."
-      default: []
+      name: "Mittwoch Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Mittwochs geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    wednesday_battery:
+      name: "Mittwoch Mindestbatteriestand"
+      description: "Mindestbatteriestand für Mittwoch in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     thursday:
-      name: "Donnerstag"
-      description: "Zeiten und Mindestbatteriestände für Donnerstag."
-      default: []
+      name: "Donnerstag Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Donnerstags geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    thursday_battery:
+      name: "Donnerstag Mindestbatteriestand"
+      description: "Mindestbatteriestand für Donnerstag in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     friday:
-      name: "Freitag"
-      description: "Zeiten und Mindestbatteriestände für Freitag."
-      default: []
+      name: "Freitag Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Freitags geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    friday_battery:
+      name: "Freitag Mindestbatteriestand"
+      description: "Mindestbatteriestand für Freitag in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     saturday:
-      name: "Samstag"
-      description: "Zeiten und Mindestbatteriestände für Samstag."
-      default: []
+      name: "Samstag Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Samstags geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    saturday_battery:
+      name: "Samstag Mindestbatteriestand"
+      description: "Mindestbatteriestand für Samstag in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     sunday:
-      name: "Sonntag"
-      description: "Zeiten und Mindestbatteriestände für Sonntag."
-      default: []
+      name: "Sonntag Schaltzeit"
+      description: "Zeitpunkt an dem der Aktor Sonntags geschaltet werden soll."
+      default: "00:00:00"
       selector:
-        object:
-          multiple: true
-          options:
-            - name: "Zeit"
-              selector:
-                time:
-            - name: "Mindestbatteriestand"
-              selector:
-                number:
-                  min: 0
-                  max: 100
-                  unit_of_measurement: "%"
+        time:
+    sunday_battery:
+      name: "Sonntag Mindestbatteriestand"
+      description: "Mindestbatteriestand für Sonntag in Prozent."
+      default: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
     duration:
       name: "Einschaltdauer"
       description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
@@ -170,21 +156,26 @@ blueprint:
 automation:
   - alias: "Schalte Aktor nach Batterielevel und Zeit"
     trigger:
-      - platform: time_pattern
-        minutes: "/1"
+      - platform: time
+        at: !input monday
+      - platform: time
+        at: !input tuesday
+      - platform: time
+        at: !input wednesday
+      - platform: time
+        at: !input thursday
+      - platform: time
+        at: !input friday
+      - platform: time
+        at: !input saturday
+      - platform: time
+        at: !input sunday
     condition:
       - condition: template
         value_template: >-
           {% set day = now().strftime('%A').lower() %}
-          {% set times = !input[day] %}
-          {% set default_level = !input.default_battery_level | float %}
-          {% for entry in times %}
-            {% set min_battery_level = entry["Mindestbatteriestand"] | default(default_level) | float %}
-            {% if entry["Zeit"] == now().strftime('%H:%M:%S') and states(!input.battery_entity) | float >= min_battery_level %}
-              {{ true }}
-            {% endif %}
-          {% endfor %}
-          {{ false }}
+          {% set min_battery_level = states(!input['{}_battery'.format(day)]) | float %}
+          {{ states(!input.battery_entity) | float >= min_battery_level }}
     action:
       - service: switch.turn_on
         target:
@@ -193,12 +184,12 @@ automation:
           - condition: template
             value_template: "{{ !input.notify }}"
         then:
-          - action: notify.notify
-            metadata: {}
+          - service: notify.notify
+            target:
+              entity_id: !input.notify_entity
             data:
-              title: Fußbodenheizung
-              message: "Die Fußbodenheizung wurde eingeschaltet."
+              message: "Der Aktor {{ !input.switch_entity }} wurde eingeschaltet."
       - delay: "00:00:{{ !input.duration }}"
       - service: switch.turn_off
         target:
-          entity_id: !input switch_entity
+          entity_id: !input.switch_entity
