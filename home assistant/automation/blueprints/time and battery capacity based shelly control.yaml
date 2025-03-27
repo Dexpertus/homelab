@@ -51,7 +51,7 @@ blueprint:
             
     day_section:
       name: "🗓️ Wochentageweise Schaltzeit und Mindestbatteriestand"
-      collapsed: false
+      collapsed: true
       input:
         monday:
           name: "Montag Schaltzeit"
