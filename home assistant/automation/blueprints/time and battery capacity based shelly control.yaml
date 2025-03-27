@@ -44,42 +44,119 @@ blueprint:
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     tuesday:
       name: "Dienstag"
       description: "Zeiten und Mindestbatteriestände für Dienstag."
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     wednesday:
       name: "Mittwoch"
       description: "Zeiten und Mindestbatteriestände für Mittwoch."
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     thursday:
       name: "Donnerstag"
       description: "Zeiten und Mindestbatteriestände für Donnerstag."
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     friday:
       name: "Freitag"
       description: "Zeiten und Mindestbatteriestände für Freitag."
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     saturday:
       name: "Samstag"
       description: "Zeiten und Mindestbatteriestände für Samstag."
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     sunday:
       name: "Sonntag"
       description: "Zeiten und Mindestbatteriestände für Sonntag."
       default: []
       selector:
         object:
+          multiple: true
+          options:
+            - name: "Zeit"
+              selector:
+                time:
+            - name: "Mindestbatteriestand"
+              selector:
+                number:
+                  min: 0
+                  max: 100
+                  unit_of_measurement: "%"
     duration:
       name: "Einschaltdauer"
       description: "Wie lange der Aktor eingeschaltet bleiben soll (in Sekunden)."
@@ -102,8 +179,8 @@ automation:
           {% set times = !input[day] %}
           {% set default_level = !input.default_battery_level | float %}
           {% for entry in times %}
-            {% set min_battery_level = entry.min_battery | default(default_level) | float %}
-            {% if entry.time == now().strftime('%H:%M:%S') and states(!input.battery_entity) | float >= min_battery_level %}
+            {% set min_battery_level = entry["Mindestbatteriestand"] | default(default_level) | float %}
+            {% if entry["Zeit"] == now().strftime('%H:%M:%S') and states(!input.battery_entity) | float >= min_battery_level %}
               {{ true }}
             {% endif %}
           {% endfor %}
