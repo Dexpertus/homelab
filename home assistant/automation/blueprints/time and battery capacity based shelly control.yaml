@@ -57,7 +57,11 @@ trigger:
   - trigger: state
     entity_id: !input schedule
     to: "off"
-    id: turn_off      
+    id: turn_off   
+condition:
+  - condition: numeric_state
+    entity_id: !input battery_entity
+    above: !input battery_level
 action:
   - choose:
       - conditions:
