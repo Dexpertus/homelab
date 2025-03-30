@@ -49,7 +49,7 @@ blueprint:
 mode: single
 max_exceeded: silent
 
-trigger:
+triggers:
   - trigger: state
     entity_id: !input schedule
     to: "on"
@@ -58,11 +58,11 @@ trigger:
     entity_id: !input schedule
     to: "off"
     id: turn_off   
-condition:
+conditions:
   - condition: numeric_state
     entity_id: !input battery_entity
     above: !input battery_level
-action:
+actions:
   - choose:
       - conditions:
           - condition: trigger
