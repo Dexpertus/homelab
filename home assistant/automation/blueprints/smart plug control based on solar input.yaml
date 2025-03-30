@@ -76,12 +76,12 @@ blueprint:
               unit_of_measurement: Prozent
 
 triggers:
-  - alias: more then !input input_above_power Watt input into power grid
+  - alias: more then {{!input input_above_power}} Watt input into power grid
     trigger: numeric_state
     entity_id: !input input_pv_power_sensor
     id: above_value
     above: !input input_above_power
-  - alias: less then !input input_above_power Watt input into power grid
+  - alias: less then {{!input input_above_power}} Watt input into power grid
     trigger: numeric_state
     entity_id: !input input_pv_power_sensor
     id: below_value
