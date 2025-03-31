@@ -33,7 +33,7 @@ blueprint:
             selector:
               entity:
                 filter:
-                  - domain: light
+                  - domain: switch
 
     value_section:
       name: Values
