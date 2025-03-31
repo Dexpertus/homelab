@@ -87,17 +87,20 @@ triggers:
     id: below_value
     above: !input input_below_power
 
-conditions:
-  - condition: numeric_state
-    entity_id: !input input_battery_capacity_sensor
-    above: !input input_battery_capacity
+# conditions:
+#   - condition: numeric_state
+#     entity_id: !input input_battery_capacity_sensor
+#     above: !input input_battery_capacity
 
 actions:          
   - choose:
       - conditions:
           - condition: trigger
             id:
-              - above_value  
+              - above_value 
+          - condition: numeric_state
+            entity_id: !input input_battery_capacity_sensor
+            above: !input input_battery_capacity
         sequence:
           - action: switch.turn_on
             target: 
