@@ -9,6 +9,8 @@ Youtube
     - https://www.youtube.com/watch?v=nzWScK6Uup0&t=571s
   Energiemessung - PowerCalc 
     - https://www.youtube.com/watch?v=Anw34kwSo2s
+  Template Helfer
+    - https://www.youtube.com/watch?v=amf-zTsPtl8
 
 GitHub
   Grundlegende Schreib- und Formatierungssyntax 
