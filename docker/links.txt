@@ -1,2 +1,6 @@
+Install Docker
+  - https://docs.docker.com/engine/install/debian/
+Install Portainer
+  - https://docs.portainer.io/start/install-ce/server/docker/linux
 Speedtest Tracker
   - https://github.com/alexjustesen/speedtest-tracker
