@@ -1,4 +1,4 @@
-*Die optimale Verzeichnisstruktur*
+Die optimale Verzeichnisstruktur
 
 Das Standard-Layout
 Hörbücher/
