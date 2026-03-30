@@ -1,0 +1,23 @@
+*Die optimale Verzeichnisstruktur*
+
+Das Standard-Layout
+Hörbücher/
+└── Autor Name/
+    ├── Buchtitel A/
+    │   ├── Buchtitel A.m4b (oder .mp3-Dateien)
+│   ├── cover.jpg
+    │   └── metadata.json (optional)
+    └── Buchtitel B/
+        └── ...
+
+Umgang mit Buchreihen (Serien)
+
+Hörbücher/
+└── Marc-Uwe Kling/
+    └── Die Känguru-Chroniken/
+        ├── 01 - Die Känguru-Chroniken/
+        │   └── Datei.m4b
+        ├── 02 - Das Känguru-Manifest/
+        │   └── Datei.m4b
+        └── 03 - Die Känguru-Offenbarung/
+            └── Datei.m4b
